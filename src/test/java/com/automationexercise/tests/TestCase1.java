@@ -17,6 +17,11 @@ public class TestCase1 extends TestBase {
     public void registerUser() throws IOException, ParseException {
 
         verifyThatHomePageIsVisibleSuccessfully();
+        verifyNewUserSignupIsVisible();
+        verifyThatEnterAccountInformationIsVisible();
+        verifyThatAccountCreatedIsVisible();
+        verifyThatLoggedInAsUsernameIsVisible();
+        verifyThatAccountDeletedIsVisibleAndClickContinueButton();
 
     }
 
@@ -30,6 +35,42 @@ public class TestCase1 extends TestBase {
                 homePageVisible,
                 "Verify that home page is not visible successfully"
         );
+    }
+    public static void verifyNewUserSignupIsVisible() {
+        String newUserSignupText = new HomePage(getDriver())
+                .signupLoginClick()
+                .getNewUserSignup()
+                .getText();
+        Assert.assertEquals(newUserSignupText, "New User Signup!", "Verify 'New User Signup!' is visible");
+    }
+    private void verifyThatEnterAccountInformationIsVisible() {
+        String enterAccountInformationText = new LoginSignupPage(getDriver())
+                .fillCorrectSignup(name, email)
+                .getEnterAccountInformation()
+                .getText();
+        Assert.assertEquals(enterAccountInformationText, "ENTER ACCOUNT INFORMATION", "Verify that 'ENTER ACCOUNT INFORMATION' is visible");
+    }
+    private void verifyThatAccountCreatedIsVisible() throws IOException, ParseException {
+        String accountCreatedText = new EnterAccountInformationPage(getDriver())
+                .fillAccountDetails()
+                .getAccountCreated()
+                .getText();
+        Assert.assertEquals(accountCreatedText, "ACCOUNT CREATED!", "Verify that 'ACCOUNT CREATED!' is visible");
+    }
+    private void verifyThatLoggedInAsUsernameIsVisible() {
+        String username = new AccountCreatedPage(getDriver())
+                .continueButtonClick()
+                .getUsername()
+                .getText();
+        Assert.assertEquals(username, name, "Verify that 'Logged in as username' is visible");
+    }
+    public static void verifyThatAccountDeletedIsVisibleAndClickContinueButton() {
+        String accountDeletedText = new LoggedHomePage(getDriver())
+                .deleteAccountButtonClick()
+                .getAccountDeleted()
+                .getText();
+        Assert.assertEquals(accountDeletedText, "ACCOUNT DELETED!", "Verify that 'ACCOUNT DELETED!' is visible");
+        //new AccountDeletedPage(getDriver()).continueButtonClick();
     }
 
 }

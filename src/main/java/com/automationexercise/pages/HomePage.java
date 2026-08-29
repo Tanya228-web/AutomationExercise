@@ -13,10 +13,18 @@ public class HomePage {
     private WebElement girlImgResponsive;
 
     public HomePage(WebDriver driver) {
+        System.out.println(driver);
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
+    @FindBy(css = "a[href='/login']")
+    private WebElement signupLoginButton;
 
     public WebElement homePageIsVisible() {
         return girlImgResponsive;
+    }
+    public LoginSignupPage signupLoginClick() {
+        signupLoginButton.click();
+        return new LoginSignupPage(driver);
     }
 }

@@ -32,6 +32,9 @@ public class LoginSignupPage {
     @FindBy(css = "button[data-qa='login-button']")
     private WebElement loginButton;
 
+    @FindBy(xpath = "/html/body/section/div/div/div[1]/div/form/p")
+    private WebElement errorLogin;
+
 
     public LoginSignupPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -65,5 +68,13 @@ public class LoginSignupPage {
         fillLogin(email, password);
         return new LoggedHomePage(driver);
     }
+    public LoginSignupPage fillIncorrectLogin(String email, String password) {
+        fillLogin(email, password);
+        return this;
+    }
+    public WebElement getErrorLogin() {
+        return errorLogin;
+    }
+
 
 }

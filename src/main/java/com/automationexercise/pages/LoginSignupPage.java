@@ -8,7 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginSignupPage {
     private WebDriver driver;
 
-
+    @FindBy(css = "div[class='login-form'] h2")
+    private WebElement loginToYourAccount;
 
     @FindBy(css = "div[class='signup-form'] h2")
     private WebElement newUserSignup;
@@ -21,6 +22,15 @@ public class LoginSignupPage {
 
     @FindBy(css = "button[data-qa='signup-button']")
     private WebElement signupButton;
+
+    @FindBy(css = "input[data-qa='login-email']")
+    private WebElement loginEmailInput;
+
+    @FindBy(css = "input[data-qa='login-password']")
+    private WebElement loginPasswordInput;
+
+    @FindBy(css = "button[data-qa='login-button']")
+    private WebElement loginButton;
 
 
     public LoginSignupPage(WebDriver driver) {
@@ -40,4 +50,20 @@ public class LoginSignupPage {
         fillSignup(name, email);
         return new EnterAccountInformationPage(driver);
     }
+    public WebElement getLoginToYourAccount() {
+        return loginToYourAccount;
+    }
+    private void fillLogin(String email, String password) {
+
+        loginEmailInput.sendKeys(email);
+        loginPasswordInput.sendKeys(password);
+        loginButton.click();
+    }
+
+    public LoggedHomePage fillCorrectLogin(String email, String password) {
+
+        fillLogin(email, password);
+        return new LoggedHomePage(driver);
+    }
+
 }

@@ -15,4 +15,11 @@ public class JSONReader {
         JSONObject accountDetails = (JSONObject) obj;
         return (String)accountDetails.get(data);
     }
+    public static String existingUser(String data) throws IOException, ParseException {
+        JSONParser jsonParser = new JSONParser();
+        FileReader fileReader = new FileReader("src\\main\\resources\\testData\\ExistingUser.json");
+        Object obj = jsonParser.parse(fileReader);
+        JSONObject existingUser = (JSONObject) obj;
+        return (String)existingUser.get(data);
+    }
 }

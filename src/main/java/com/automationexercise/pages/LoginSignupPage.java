@@ -1,9 +1,13 @@
 package com.automationexercise.pages;
 
+import com.automationexercise.utils.JSONReader;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.IOException;
 
 public class LoginSignupPage {
     private WebDriver driver;
@@ -22,6 +26,10 @@ public class LoginSignupPage {
 
     @FindBy(css = "button[data-qa='signup-button']")
     private WebElement signupButton;
+
+    @FindBy(xpath = "//section/div/div/div[3]/div/form/p")
+    private WebElement emailAddressAlreadyExist;
+
 
     @FindBy(css = "input[data-qa='login-email']")
     private WebElement loginEmailInput;
@@ -53,6 +61,12 @@ public class LoginSignupPage {
         fillSignup(name, email);
         return new EnterAccountInformationPage(driver);
     }
+    public LoginSignupPage fillIncorrectSignup() throws IOException, ParseException {
+        fillSignup(JSONReader.existingUser("name"),
+                JSONReader.existingUser("email"));
+        return this;
+    }
+
     public WebElement getLoginToYourAccount() {
         return loginToYourAccount;
     }
@@ -72,8 +86,13 @@ public class LoginSignupPage {
         fillLogin(email, password);
         return this;
     }
+
     public WebElement getErrorLogin() {
         return errorLogin;
+    }
+
+    public WebElement getEmailAddressAlreadyExist() {
+        return emailAddressAlreadyExist;
     }
 
 

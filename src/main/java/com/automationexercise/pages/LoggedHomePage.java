@@ -11,6 +11,10 @@ public class LoggedHomePage {
     @FindBy(xpath = "//*[@id='header']/div/div/div/div[2]/div/ul/li[10]/a/b")
     private WebElement username;
 
+    @FindBy(xpath = "//header/div/div/div/div[2]/div/ul/li[4]/a")
+    private WebElement logoutButton;
+
+
     public LoggedHomePage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
@@ -24,5 +28,9 @@ public class LoggedHomePage {
     public AccountDeletedPage deleteAccountButtonClick() {
         deleteAccountButton.click();
         return new AccountDeletedPage(driver);
+    }
+    public LoginSignupPage logoutButtonClick() {
+        logoutButton.click();
+        return new LoginSignupPage(driver);
     }
 }

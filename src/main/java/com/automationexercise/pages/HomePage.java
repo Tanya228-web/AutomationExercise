@@ -12,6 +12,9 @@ public class HomePage {
     @FindBy(css = "div[class='item active'] img[alt='demo website for practice']")
     private WebElement girlImgResponsive;
 
+    @FindBy(css = "a[href='/contact_us']")
+    private WebElement contactUsButton;
+
     public HomePage(WebDriver driver) {
         System.out.println(driver);
         PageFactory.initElements(driver, this);
@@ -27,4 +30,9 @@ public class HomePage {
         signupLoginButton.click();
         return new LoginSignupPage(driver);
     }
+    public ContactUsPage contactUsButtonClick() {
+        contactUsButton.click();
+        return new ContactUsPage(driver);
+    }
+
 }

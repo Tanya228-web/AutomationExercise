@@ -1,5 +1,6 @@
 package com.automationexercise.pages;
 
+import com.automationexercise.utils.SeleniumHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,6 +18,9 @@ public class HomePage {
 
     @FindBy(css = "a[href='/test_cases']")
     private WebElement testCasesButton;
+
+    @FindBy(css = "a[href='/products']")
+    private WebElement productsButton;
 
     public HomePage(WebDriver driver) {
         System.out.println(driver);
@@ -40,6 +44,11 @@ public class HomePage {
     public TestCasesPage testCasesButtonClick() {
         testCasesButton.click();
         return new TestCasesPage(driver);
+    }
+    public ProductsPage productsButtonClick() {
+        System.out.println(productsButton.isDisplayed());
+        productsButton.click();
+        return new ProductsPage(driver);
     }
 
 

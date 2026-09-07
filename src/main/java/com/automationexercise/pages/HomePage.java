@@ -1,10 +1,15 @@
 package com.automationexercise.pages;
 
 import com.automationexercise.utils.SeleniumHelper;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage {
 
@@ -24,13 +29,15 @@ public class HomePage {
 
     public HomePage(WebDriver driver) {
         System.out.println(driver);
-        PageFactory.initElements(driver, this);
         this.driver = driver;
+        PageFactory.initElements(driver, this);
+
     }
     @FindBy(css = "a[href='/login']")
     private WebElement signupLoginButton;
 
     public WebElement homePageIsVisible() {
+        System.out.println(driver);
         return girlImgResponsive;
     }
     public LoginSignupPage signupLoginClick() {
@@ -46,6 +53,8 @@ public class HomePage {
         return new TestCasesPage(driver);
     }
     public ProductsPage productsButtonClick() {
+
+        SeleniumHelper.waitForElementToBeClickable(driver, productsButton);
         System.out.println(productsButton.isDisplayed());
         productsButton.click();
         return new ProductsPage(driver);

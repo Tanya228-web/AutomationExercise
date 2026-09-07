@@ -16,6 +16,13 @@ public class ProductsPage {
     @FindBy(css = "a[href='/product_details/1']")
     private WebElement viewProductOfFirstProductButton;
 
+    @FindBy(id = "search_product")
+    private WebElement searchProductInput;
+
+    @FindBy(id = "submit_search")
+    private WebElement submitSearchInput;
+
+
     public ProductsPage(WebDriver driver) {
         System.out.println(driver);
         PageFactory.initElements(driver, this);
@@ -29,5 +36,10 @@ public class ProductsPage {
     public ProductDetailsPage viewProductOfFirstProductButtonClick() {
         viewProductOfFirstProductButton.click();
         return new ProductDetailsPage(driver);
+    }
+    public ProductsPage fillSearchProductInput(String searchProduct) {
+        searchProductInput.sendKeys(searchProduct);
+        submitSearchInput.click();
+        return this;
     }
 }

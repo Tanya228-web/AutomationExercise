@@ -20,6 +20,7 @@ public class TestBase {
     public void setup() throws IOException {
         String url = PropertiesLoader.loadProperty("url");
         WebDriver driver = BrowserManager.doBrowserSetup();
+        System.out.println(driver);
         tdriver.set(driver);
         getDriver().get(url);
     }

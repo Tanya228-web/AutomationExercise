@@ -5,7 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 
+import java.io.File;
 import java.io.IOException;
 
 public class BrowserManager {
@@ -24,10 +26,14 @@ public class BrowserManager {
             driver = new ChromeDriver(chromeOptions);
 
         } else if (name.equalsIgnoreCase("Firefox")) {
+
             FirefoxOptions firefoxOptions = new FirefoxOptions();
-            //firefoxOptions.addArguments("--headless");
-            firefoxOptions.addArguments("--private");
+
             driver = new FirefoxDriver(firefoxOptions);
+
+            ((FirefoxDriver) driver).installExtension(
+                    new File("C:\\Users\\iamGa\\Downloads\\ublock_origin-1.74.0.xpi").toPath()
+            );
         }
         return driver;
     }

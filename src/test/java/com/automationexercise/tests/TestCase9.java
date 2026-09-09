@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 import static com.automationexercise.tests.TestBase.getDriver;
 
@@ -27,7 +28,7 @@ public class TestCase9 extends TestBase {
         TestCase1.verifyThatHomePageIsVisibleSuccessfully();
         TestCase8.verifyUserIsNavigatedToAllProductsPageSuccessfully();
         verifySearchedProductsIsVisible();
-        //verifyAllTheProductsRelatedToSearchAreVisible();
+        verifyAllTheProductsRelatedToSearchAreVisible();
     }
     public static void verifySearchedProductsIsVisible() {
         String searchedProductsText = new ProductsPage(getDriver())
@@ -36,4 +37,14 @@ public class TestCase9 extends TestBase {
                 .getText();
         Assert.assertEquals(searchedProductsText, "SEARCHED PRODUCTS", "Verify 'SEARCHED PRODUCTS' is visible");
     }
+    public static List<String> verifyAllTheProductsRelatedToSearchAreVisible() {
+        List<String> productsNames = new ProductsPage(getDriver()).getProductsSearchNames();
+
+        for (int i = 0; i < productsNames.size(); i++) {
+            Assert.assertTrue(productsNames.get(i).toLowerCase().contains(search.toLowerCase()));
+            System.out.println(i + ". " + productsNames.get(i) + " - contain: " + search);
+        }
+        return productsNames;
+    }
+
 }

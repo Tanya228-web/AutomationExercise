@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class ProductsPage {
 
     WebDriver driver;
@@ -18,6 +21,10 @@ public class ProductsPage {
 
     @FindBy(id = "search_product")
     private WebElement searchProductInput;
+
+    @FindBy(xpath = "//div[contains(@class, 'productinfo text-center')]//p")
+    private List<WebElement> searchResultsNames;
+
 
     @FindBy(id = "submit_search")
     private WebElement submitSearchInput;
@@ -41,5 +48,11 @@ public class ProductsPage {
         searchProductInput.sendKeys(searchProduct);
         submitSearchInput.click();
         return this;
+    }
+    public List<String> getProductsSearchNames() {
+        return searchResultsNames
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
     }
 }

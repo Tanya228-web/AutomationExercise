@@ -1,6 +1,8 @@
 package com.automationexercise.pages;
 
+import com.automationexercise.utils.JSONReader;
 import com.automationexercise.utils.SeleniumHelper;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class HomePage {
@@ -27,6 +30,12 @@ public class HomePage {
     @FindBy(css = "a[href='/products']")
     private WebElement productsButton;
 
+    @FindBy(id = "susbscribe_email")
+    private WebElement subscribeEmailInput;
+
+    @FindBy(id = "subscribe")
+    private WebElement subscribeButton;
+
     public HomePage(WebDriver driver) {
         System.out.println(driver);
         this.driver = driver;
@@ -35,6 +44,15 @@ public class HomePage {
     }
     @FindBy(css = "a[href='/login']")
     private WebElement signupLoginButton;
+
+    @FindBy(css = "div[class='single-widget'] h2")
+    private WebElement subscription;
+
+    @FindBy(id = "success-subscribe")
+    private WebElement alertSuccessSubscribe;
+
+    @FindBy(css = "a[href='/view_cart']")
+    private WebElement cartButton;
 
     public WebElement homePageIsVisible() {
         System.out.println(driver);
@@ -52,12 +70,31 @@ public class HomePage {
         testCasesButton.click();
         return new TestCasesPage(driver);
     }
+    public WebElement getSubscription() {
+        return subscription;
+    }
+
     public ProductsPage productsButtonClick() {
 
         SeleniumHelper.waitForElementToBeClickable(driver, productsButton);
         System.out.println(productsButton.isDisplayed());
         productsButton.click();
         return new ProductsPage(driver);
+    }
+    public HomePage fillSubscribe() throws IOException, ParseException {
+        subscribeEmailInput.sendKeys(JSONReader.existingUser("email"));
+        SeleniumHelper.waitForElementToBeClickable(driver, subscribeButton);
+        subscribeButton.click();
+        return this;
+    }
+
+    public WebElement getAlertSuccessSubscribe() {
+        return alertSuccessSubscribe;
+    }
+
+    public CartPage cartButtonClick() {
+        cartButton.click();
+        return new CartPage(driver);
     }
 
 

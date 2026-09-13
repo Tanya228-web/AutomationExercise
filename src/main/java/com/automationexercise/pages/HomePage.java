@@ -36,6 +36,9 @@ public class HomePage {
     @FindBy(id = "subscribe")
     private WebElement subscribeButton;
 
+    @FindBy(css = "a[href='/product_details/1']")
+    private WebElement viewProduct1Button;
+
     public HomePage(WebDriver driver) {
         System.out.println(driver);
         this.driver = driver;
@@ -80,6 +83,11 @@ public class HomePage {
         System.out.println(productsButton.isDisplayed());
         productsButton.click();
         return new ProductsPage(driver);
+    }
+    public ProductDetailPage viewProduct1ButtonClick() {
+        SeleniumHelper.waitForElementToBeClickable(driver, viewProduct1Button);
+        viewProduct1Button.click();
+        return new ProductDetailPage(driver);
     }
     public HomePage fillSubscribe() throws IOException, ParseException {
         subscribeEmailInput.sendKeys(JSONReader.existingUser("email"));

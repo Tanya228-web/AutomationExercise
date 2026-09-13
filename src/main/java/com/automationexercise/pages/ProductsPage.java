@@ -29,6 +29,18 @@ public class ProductsPage {
     @FindBy(id = "submit_search")
     private WebElement submitSearchInput;
 
+    @FindBy(css = "a[data-product-id='1']")
+    private WebElement addToCartButton1;
+
+    @FindBy(css = "a[data-product-id='2']")
+    private WebElement addToCartButton2;
+
+    @FindBy(css = "button[data-dismiss='modal']")
+    private WebElement continueShoppingButton;
+
+    @FindBy(css = "a[href='/view_cart'] u")
+    private WebElement viewCartButton;
+
 
     public ProductsPage(WebDriver driver) {
         System.out.println(driver);
@@ -54,5 +66,16 @@ public class ProductsPage {
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
+    }
+    public CartPage addProductsToCart() {
+        SeleniumHelper.waitForElementToBeClickable(driver, addToCartButton1);
+        addToCartButton1.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, continueShoppingButton);
+        continueShoppingButton.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, addToCartButton2);
+        addToCartButton2.click();
+        SeleniumHelper.waitForElementToBeClickable(driver, viewCartButton);
+        viewCartButton.click();
+        return new CartPage(driver);
     }
 }

@@ -68,5 +68,9 @@ public class CartPage {
         proceedToCheckoutButton.click();
         return new CheckoutPage(driver);
     }
+    public CartPage proceedToCheckoutButtonClick() {
+        proceedToCheckoutButton.click();
+        return this;
+    }
 
 }

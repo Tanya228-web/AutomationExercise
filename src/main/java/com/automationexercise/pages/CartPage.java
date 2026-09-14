@@ -29,6 +29,12 @@ public class CartPage {
     @FindBy(xpath = "//p[contains(@class, 'cart_total_price')]")
     private List<WebElement> totalPrice;
 
+    @FindBy(css = "li[class='active']")
+    private WebElement shoppingCart;
+
+    @FindBy(css = "a[class='btn btn-default check_out']")
+    private WebElement proceedToCheckoutButton;
+
     public List<String> getProductsNames() {
         return productName
                 .stream()
@@ -54,6 +60,13 @@ public class CartPage {
                 .stream()
                 .map(WebElement::getText)
                 .collect(Collectors.toList());
+    }
+    public WebElement getShoppingCart() {
+        return shoppingCart;
+    }
+    public CheckoutPage proceedToCheckoutLoggedButtonClick() {
+        proceedToCheckoutButton.click();
+        return new CheckoutPage(driver);
     }
 
 }

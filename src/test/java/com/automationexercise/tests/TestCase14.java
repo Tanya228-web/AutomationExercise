@@ -80,7 +80,7 @@ public class TestCase14 extends TestBase{
             Assert.assertEquals(addressDelivery.get(i), addressInvoice.get(i), "Verify Address Details");
         }
 
-        String no1 = "Mr. " + JSONReader.accountDetails("firstName") + " " + JSONReader.accountDetails("lastName");
+        String no1 = JSONReader.accountDetails("firstName") + " " + JSONReader.accountDetails("lastName");
         String no2 = JSONReader.accountDetails("company");
         String no3 = JSONReader.accountDetails("address1");
         String no4 = JSONReader.accountDetails("address2");
@@ -104,6 +104,7 @@ public class TestCase14 extends TestBase{
                 .getText();
         Assert.assertEquals(alertSuccessText, "Congratulations! Your order has been confirmed!", "Verify success message 'Congratulations! Your order has been confirmed!'");
     }
+
 
 
 

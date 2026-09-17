@@ -1,5 +1,6 @@
 package com.automationexercise.pages;
 
+import com.automationexercise.utils.SeleniumHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,6 +35,15 @@ public class CartPage {
 
     @FindBy(css = "a[class='btn btn-default check_out']")
     private WebElement proceedToCheckoutButton;
+
+    @FindBy(css = "a[data-product-id='1']")
+    private WebElement xButton1;
+
+    @FindBy(css = "a[data-product-id='2']")
+    private WebElement xButton2;
+
+    @FindBy(id = "empty_cart")
+    private WebElement emptyCartSpan;
 
     public List<String> getProductsNames() {
         return productName
@@ -71,6 +81,15 @@ public class CartPage {
     public CartPage proceedToCheckoutButtonClick() {
         proceedToCheckoutButton.click();
         return this;
+    }
+    public CartPage xButtonClick() {
+        xButton1.click();
+        xButton2.click();
+        return this;
+    }
+    public WebElement getEmptyCartSpan() {
+        SeleniumHelper.waitForElementToBeVisible(driver, emptyCartSpan);
+        return emptyCartSpan;
     }
 
 }

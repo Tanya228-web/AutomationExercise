@@ -57,6 +57,16 @@ public class HomePage {
     @FindBy(css = "a[href='/view_cart']")
     private WebElement cartButton;
 
+    @FindBy(id = "accordian")
+    private WebElement categories;
+
+    @FindBy(xpath = "//*[@id='accordian']/div[1]/div[1]/h4/a/span/i")
+    private WebElement womenCategory;
+
+    @FindBy(css = "a[href='/category_products/1']")
+    private WebElement dressCategory;
+
+
     public WebElement homePageIsVisible() {
         System.out.println(driver);
         return girlImgResponsive;
@@ -104,6 +114,25 @@ public class HomePage {
         cartButton.click();
         return new CartPage(driver);
     }
+    public WebElement getCategories() {
+        return categories;
+    }
+    public HomePage womenCategoryClick() {
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", womenCategory);
+        SeleniumHelper.waitForElementToBeClickable(driver, womenCategory);
+        womenCategory.click();
+        return this;
+    }
+
+    public ProductsPage dressCategoryClick() {
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView(true);", dressCategory);
+        SeleniumHelper.waitForElementToBeClickable(driver, dressCategory);
+        dressCategory.click();
+        return new ProductsPage(driver);
+    }
+
 
 
 }
